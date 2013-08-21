@@ -16,7 +16,7 @@ function Y = plmp(X,Xs,Ys)
   L = X(Xs,:)';
 
   for j = 1:p
-    Phi(:,j) = Ys(:,j)' * L' * inv(L*L')
+    Phi(:,j) = Ys(:,j)' * L' * inv(L*L');
   end
 
   Y = zeros(n,p);
