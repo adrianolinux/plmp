@@ -4,9 +4,9 @@ t = iris(idx,5);
 n = size(x,1);
 
 % centralizacao no input space
-for i = 1:size(x,2)
-  x(:,i) = x(:,i) - sum(x(:,i))/size(x,1);
-end
+%for i = 1:size(x,2)
+%  x(:,i) = x(:,i) - sum(x(:,i))/size(x,1);
+%end
 
 % escolha dos pontos de controle
 choice_size = ceil(sqrt(n)); % quantidade de pontos de controle
