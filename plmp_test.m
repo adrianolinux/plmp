@@ -1,17 +1,13 @@
-iris = load('../data/iris.data');
-[x,idx] = unique(iris(:,1:4), 'rows');
+iris = load('iris.data');
+[x,idx] = unique(iris(:,1:end-1), 'rows');
 t = iris(idx,5);
 n = size(x,1);
 
-% centralizacao no input space
-%for i = 1:size(x,2)
-%  x(:,i) = x(:,i) - sum(x(:,i))/size(x,1);
-%end
-
 % escolha dos pontos de controle
 choice_size = ceil(sqrt(n)); % quantidade de pontos de controle
-random_choice = unique( randi(n,1,choice_size) );
-xs = random_choice; %x(random_choice,:);
+random_choice = randperm(n);
+random_choice = random_choice(1:choice_size);
+xs = random_choice;
 ty = t(random_choice);
 
 tic
