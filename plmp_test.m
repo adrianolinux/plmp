@@ -1,17 +1,17 @@
-iris = load('iris.data');
-[x,idx] = unique(iris(:,1:end-1), 'rows');
-t = iris(idx,5);
+x = load('iris.data');
+t = x(:,end);
+x = x(:,1:end-1);
 n = size(x,1);
 
 % escolha dos pontos de controle
 choice_size = ceil(sqrt(n)); % quantidade de pontos de controle
 random_choice = randperm(n);
 random_choice = random_choice(1:choice_size);
-xs = random_choice;
-ty = t(random_choice);
+xs = x(random_choice,:);
+ts = t(random_choice);
 
 tic
-[ys,z] = force(x(xs,:),20);
+ys = force(xs);
 display('Posicionamento dos pontos de controle: ');
 toc
 
@@ -26,22 +26,17 @@ display('Projecao: ');
 toc
 
 % plot results
-% o = pontos de controle no visual space
-% * = projecao dos pontos de controle
-% . = projecao
+figure(1);
 clf;
 hold on;
-plot(ys(ty == 1,1), ys(ty == 1,2), 'ro', 'MarkerSize', 15);
-plot(ys(ty == 2,1), ys(ty == 2,2), 'bo', 'MarkerSize', 15);
-plot(ys(ty == 3,1), ys(ty == 3,2), 'go', 'MarkerSize', 15);
-plot(y(t == 1,1), y(t == 1,2), 'r.', ...
-     y(t == 2,1), y(t == 2,2), 'b.', ...
-     y(t == 3,1), y(t == 3,2), 'g.');
-plot(y(random_choice(t(random_choice) == 1),1), y(random_choice(t(random_choice) == 1),2), 'r*', ...
-     y(random_choice(t(random_choice) == 2),1), y(random_choice(t(random_choice) == 2),2), 'b*', ...
-     y(random_choice(t(random_choice) == 3),1), y(random_choice(t(random_choice) == 3),2), 'g*');
+color = [0,0,0; 1,0,0; 0,1,0;, 0,0,1];
+h = scatter(y(:,1), y(:,2), 25, color(t,:), 'filled');
+set(h,'markeredgecolor','k');
+plot(ys(ts == 1,1), ys(ts == 1,2), 'ko', ...
+     ys(ts == 2,1), ys(ts == 2,2), 'ro', ...
+     ys(ts == 3,1), ys(ts == 3,2), 'go', 'markersize', 15);
+legend('Projected data', 'Control points projection');
 hold off;
 
 %saveas(gcf,'figura.png');
-%exit
 
